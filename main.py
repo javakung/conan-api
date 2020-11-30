@@ -9,6 +9,7 @@ import math
 import requests
 from bs4 import BeautifulSoup
 from fastapi.responses import PlainTextResponse
+from collections import Counter
 
 app = FastAPI()
 
@@ -131,6 +132,24 @@ def google_search(text):
             break
     
     return(result)
+
+@app.get("/CountWordInString",response_class=PlainTextResponse)
+async def CountWordInString(InputText : str ="Sample Text!", CountRange : str = "1,1" ):
+    Result= ""
+    RangeList = CountRange.split(',')
+    InitialRange = int(RangeList[0])
+    LastRange = int(RangeList[1]) + 1
+    PresentRange = InitialRange
+    for PresentRange in range(InitialRange,LastRange):
+        RawList =[InputText[i:i+PresentRange] for i in range(0, len(InputText), PresentRange)]
+        CountedList = Counter(RawList)
+        SortedList = sorted(CountedList.items(),key=lambda item: item[1],reverse= True)
+        Result += 'Range =' + str(PresentRange) +'\n'
+        for SortedResult in SortedList :
+            Result += '"' + SortedResult[0] + '"' + ' = ' + str(SortedResult[1]) + '\n'
+    PresentRange += 1
+    
+    return Result
 
 
 
