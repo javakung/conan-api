@@ -96,36 +96,36 @@ async def min(li):
 @app.get("/NormalizeNumber")
 async def number(Number: str = ""):
     if '.' in Number:
-        nsplit = Number.split('.')
-        if (',' in nsplit[0]):
-            n2split = nsplit[0].split(',')
-            for ch in n2split[1::]:
-                if len(ch) == 3:
-                    a1 = float(Number.replace(',', ''))
-                    status = 'True'
+        Nsplit = Number.split('.')
+        if (',' in Nsplit[0]):
+            N2split = Nsplit[0].split(',')
+            for CLenge in N2split[1::]:
+                if len(CLenge) == 3:
+                    NumberNormalized = float(Number.replace(',', ''))
+                    Status = 'True'
                 else:
-                    a1 = Number
-                    status = 'False'
+                    NumberNormalized = Number
+                    Status = 'False'
         else:
-            a1 = float(Number.replace(',', ''))
-            status = 'True'
+            NumberNormalized = float(Number.replace(',', ''))
+            Status = 'True'
     elif len(Number) == 3:
-        a1 = float(Number.replace(',', ''))
-        status = 'True'
+        NumberNormalized = float(Number.replace(',', ''))
+        Status = 'True'
     elif ',' in Number:
-        Csplit = Number.split(',')
-        for b in Csplit[1::]:
-            if len(b) == 3:
-                a1 = float(Number.replace(',', ''))
-                status = 'True'
+        N3split = Number.split(',')
+        for Clenge2 in N3split[1::]:
+            if len(Clenge2) == 3:
+                NumberNormalized = float(Number.replace(',', ''))
+                Status = 'True'
             else:
-                a1 = Number
-                status = 'False'
+                NumberNormalized = Number
+                Status = 'False'
     else:
-        a1 = Number
-        status = 'False'
+        NumberNormalized = Number
+        Status = 'False'
 
-    jsonout = {'a1': a1, 'status': status}
+    jsonout = {'NumberNormalized': NumberNormalized, 'Status': Status}
     return jsonout
 
 
